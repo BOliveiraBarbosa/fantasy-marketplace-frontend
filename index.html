@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Taverna do Aventureiro - Loja RPG</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Background Layer -->
+    <div class="bg-layer"></div>
+
+    <!-- Setup Screen (Input Gold) -->
+    <div id="setup-screen" class="screen active">
+        <div class="glass-modal setup-modal">
+            <h1>A Taverna do Aventureiro</h1>
+            <p>Bem-vindo, viajante. Quantas moedas de ouro pesam na sua bolsa hoje?</p>
+            <input type="number" id="gold-input" min="0" placeholder="Ex: 100" />
+            <button id="start-btn" class="btn-primary">Entrar na Loja <i class="fa-solid fa-door-open"></i></button>
+        </div>
+    </div>
+
+    <!-- Main Shop Screen -->
+    <div id="shop-screen" class="screen">
+        <header class="glass-nav">
+            <h1 class="logo">Taverna da Aventura</h1>
+            
+            <div class="search-container">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="search-input" placeholder="Buscar itens mágicos..." />
+            </div>
+
+            <div class="nav-actions">
+                <div class="gold-display">
+                    <i class="fa-solid fa-coins gold-icon"></i> <span id="current-gold">0</span>
+                </div>
+                <button id="wishlist-btn" class="action-btn" title="Lista de Desejos">
+                    <i class="fa-solid fa-heart"></i>
+                    <span id="wishlist-count" class="badge">0</span>
+                </button>
+                <button id="cart-btn" class="action-btn" title="Carrinho">
+                    <i class="fa-solid fa-shopping-cart"></i>
+                    <span id="cart-count" class="badge">0</span>
+                </button>
+            </div>
+        </header>
+
+        <main class="shop-container">
+            <aside class="sidebar glass-panel">
+                <h2>Categorias</h2>
+                <ul id="category-list">
+                    <li class="active" data-category="Todos">Todos</li>
+                    <li data-category="Alimento"><i class="fa-solid fa-apple-whole"></i> Alimento</li>
+                    <li data-category="Poção"><i class="fa-solid fa-flask"></i> Poção</li>
+                    <li data-category="Arma"><i class="fa-solid fa-khanda"></i> Armas</li>
+                    <li data-category="Armadura"><i class="fa-solid fa-shield-halved"></i> Armaduras</li>
+                </ul>
+            </aside>
+
+            <section class="items-grid" id="items-grid">
+                <!-- Items will be injected here via JS -->
+            </section>
+        </main>
+    </div>
+
+    <!-- Item Details Modal -->
+    <div id="item-modal" class="modal-overlay hidden">
+        <div class="glass-modal item-detail-modal">
+            <button class="close-btn" id="close-item-modal"><i class="fa-solid fa-xmark"></i></button>
+            <div class="item-detail-content">
+                <!-- Injected via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="sidebar-overlay hidden">
+        <div class="glass-sidebar">
+            <div class="sidebar-header">
+                <h2>Seu Carrinho</h2>
+                <button class="close-btn" id="close-cart"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="sidebar-items" id="cart-items">
+                <!-- Cart items injected here -->
+            </div>
+            <div class="sidebar-footer">
+                <div class="total">Total: <i class="fa-solid fa-coins gold-icon"></i> <span id="cart-total">0</span></div>
+                <button id="checkout-btn" class="btn-primary">Comprar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Sidebar -->
+    <div id="wishlist-sidebar" class="sidebar-overlay hidden">
+        <div class="glass-sidebar">
+            <div class="sidebar-header">
+                <h2>Lista de Desejos</h2>
+                <button class="close-btn" id="close-wishlist"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="sidebar-items" id="wishlist-items">
+                <!-- Wishlist items injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
