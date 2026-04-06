@@ -370,6 +370,7 @@ h1, h2, h3, h4, .logo, .gold-icon {
     flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -543,6 +544,43 @@ h1, h2, h3, h4, .logo, .gold-icon {
 .cart-item-price {
     color: var(--primary);
     font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.cart-quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    width: fit-content;
+}
+
+.cart-quantity-controls button {
+    background: var(--primary);
+    border: none;
+    color: #000;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: transform 0.1s;
+}
+
+.cart-quantity-controls button:hover {
+    transform: scale(1.1);
+}
+
+.cart-quantity-controls span {
+    font-weight: bold;
+    min-width: 20px;
+    text-align: center;
 }
 
 .remove-btn {

@@ -1,66 +1,173 @@
 const DB_ITEMS = [
-    {
-        id: 1,
-        name: "Pão Élfico (Lembas)",
-        category: "Alimento",
-        desc: "Uma pequena mordida é suficiente para encher o estômago de um homem adulto. Restaura 5 HP e remove fadiga.",
-        price: 15,
-        image: "assets/bread.png"
-    },
-    {
-        id: 2,
-        name: "Poção de Cura Maior",
-        category: "Poção",
-        desc: "Líquido carmesim efervescente. Restaura instantaneamente 50 HP quando consumida. Tem um gosto residual de morango e magia pura.",
-        price: 50,
-        image: "assets/potion.png"
-    },
-    {
-        id: 3,
-        name: "Espada Longa Rúnica",
-        category: "Arma",
-        desc: "Forjada nas montanhas antigas, possui runas que brilham em azul. Causa +2 Dano Mágico de Gelo a cada acerto.",
-        price: 250,
-        image: "assets/sword.png"
-    },
-    {
-        id: 4,
-        name: "Armadura de Couro Sombrio",
-        category: "Armadura",
-        desc: "Traje de couro flexível que não faz barulho. +15 Furtividade, +3 Classe de Armadura. Perfeita para ladinos.",
-        price: 180,
-        image: "assets/armor.png"
-    },
-    {
-        id: 5,
-        name: "Ração Básica de Viagem",
-        category: "Alimento",
-        desc: "Carne seca, queijo duro e biscoitos salgados. Não é saboroso, mas mantém você vivo. Restaura 2 HP.",
-        price: 5,
-        image: "assets/bread.png"
-    },
-    {
-        id: 6,
-        name: "Poção de Mana",
-        category: "Poção",
-        desc: "Brilha com uma luz azul intensa. Restaura 30 Pontos de Mana. Necessário para magos descuidados.",
-        price: 45,
-        image: "assets/potion.png"
-    },
-    {
-        id: 7,
-        name: "Adaga do Assassino",
-        category: "Arma",
-        desc: "Lâmina curta e envenenada. Críticos causam sangramento contínuo por 3 turnos.",
-        price: 120,
-        image: "assets/sword.png"
-    }
+    // Taverna Risca Faca do MC
+    { id: 101, name: "Ensopado de Carne do MC 🍲🥩", category: "Taverna", desc: "Uma refeição quente e nutritiva servida na Taverna Risca Faca. Restaura um pouco de PV.", price: 10, image: "assets/bread.png" },
+    { id: 102, name: "Hipoglós 🐟 🌿 (Pacu Assado)", category: "Taverna", desc: "Delicioso pacu assado com ervas da região.", price: 15, image: "assets/bread.png" },
+    { id: 103, name: "Banquete dos Reis 🍗🍞", category: "Taverna", desc: "Serve até 6 pessoas. +2 temporário em Constituição (24h), cura completa de PV, remove exaustão, imunidade a doenças (7 dias), vantagem contra venenos (24h), +3 em Carisma (48h) e bônus moral para o grupo.", price: 100, image: "assets/bread.png" },
+    { id: 104, name: "Caneco de Hidromel 🍯🍺", category: "Taverna", desc: "O clássico das tavernas, doce e forte.", price: 5, image: "assets/potion.png" },
+    { id: 105, name: "Vinho da Casa 🍷", category: "Taverna", desc: "Um vinho aceitável para viajantes cansados.", price: 8, image: "assets/potion.png" },
+    { id: 106, name: "Seninha (Batida de Coco) ⛑️", category: "Taverna", desc: "Uma batida de coco refrescante e não alcoólica.", price: 10, image: "assets/potion.png" },
+    { id: 107, name: "Licor de Frutas da Aurora 🍷✨", category: "Taverna", desc: "Um licor refinado que brilha com a luz da manhã.", price: 10, image: "assets/potion.png" },
+    { id: 108, name: "Garrafão de Uísque Inferiano 🥃💀", category: "Taverna", desc: "Só para os corajosos! Uma bebida extremamente forte vinda das profundezas.", price: 20, image: "assets/potion.png" },
+    { id: 109, name: "Jogo de Dados (Aposta Mínima) 🎲", category: "Taverna", desc: "Tente sua sorte nos dados da Taverna.", price: 5, image: "assets/sword.png" },
+    { id: 110, name: "Cartas dos Mercadores 🃏", category: "Taverna", desc: "Aposta média em um jogo de cartas tenso.", price: 20, image: "assets/sword.png" },
+    { id: 111, name: "Roleta do Destino 🎡", category: "Taverna", desc: "Altos riscos, grandes prêmios. Quem sabe o que o destino reserva?", price: 50, image: "assets/sword.png" },
+    { id: 112, name: "Briga no Pátio 🥊", category: "Taverna", desc: "Soco inglês incluído. Briga para diversão (e alguns dentes a menos).", price: 0, image: "assets/armor.png" },
+    { id: 113, name: "Desafio do Mc Daleste e Mc Kelvin 🍺💫", category: "Taverna", desc: "Beba e tente ficar de pé. Um desafio de resistência.", price: 5, image: "assets/potion.png" },
+    { id: 114, name: "Histórias de Aventureiros 📖", category: "Taverna", desc: "Ouça ou pague para contar a sua própria história épica.", price: 2, image: "assets/bread.png" },
+
+    // Guarnição de Pedra
+    { id: 201, name: "Pablo Escobar – Chefe de Contrabando 💰", category: "Caçadores", desc: "PROCURADO! Vivo: 1000 PP, Morto: 700 PP. Visto por último na Baía de Nerath.", price: 1000, image: "assets/sword.png" },
+    { id: 202, name: "Elza 'A Ladra de Gelo' ❄️", category: "Caçadores", desc: "PROCURADA! Viva: 750 PP, Morta: 500 PP. Vista na Vila Cruzeiro.", price: 750, image: "assets/sword.png" },
+    { id: 203, name: "'Mão Negra' Krug 🩸", category: "Caçadores", desc: "PROCURADO! Mercenário brutal. Vivo: 500 PP, Morto: 400 PP. Visto no Sertão.", price: 500, image: "assets/sword.png" },
+    { id: 204, name: "Garras de Sombra 🗡️", category: "Caçadores", desc: "Grupo de assassinos. 250 PP por captura, 100 PP por info.", price: 250, image: "assets/sword.png" },
+    { id: 205, name: "Caçada Simples 🎯", category: "Caçadores", desc: "Contrato para lidar com bandidos menores.", price: 50, image: "assets/shield.png" },
+    { id: 206, name: "Missão Especial 🔥", category: "Caçadores", desc: "Contrato para alvos específicos de média periculosidade.", price: 300, image: "assets/shield.png" },
+    { id: 207, name: "Caçada Mortal ☠️", category: "Caçadores", desc: "Contrato para os alvos mais perigosos do reino.", price: 1000, image: "assets/shield.png" },
+
+    // Sede dos Aventureiros
+    { id: 301, name: "Inscrição de Aventureiro ✍️", category: "Aventureiros", desc: "Registro oficial para novatos na guilda.", price: 25, image: "assets/bread.png" },
+    { id: 302, name: "Promoção para Bronze 🥉", category: "Aventureiros", desc: "Requisito: Nível 5+.", price: 50, image: "assets/armor.png" },
+    { id: 303, name: "Promoção para Prata 🥈", category: "Aventureiros", desc: "Nível 8+.", price: 250, image: "assets/armor.png" },
+    { id: 304, name: "Promoção para Ouro 🥇", category: "Aventureiros", desc: "Nível 10+.", price: 350, image: "assets/armor.png" },
+    { id: 305, name: "Promoção para Rubi ♦️", category: "Aventureiros", desc: "Nível 14+.", price: 500, image: "assets/armor.png" },
+    { id: 306, name: "Promoção para Esmeralda 💚", category: "Aventureiros", desc: "Nível 18+.", price: 1000, image: "assets/armor.png" },
+    { id: 307, name: "Promoção para Diamante 💎", category: "Aventureiros", desc: "Nível 20+.", price: 2000, image: "assets/armor.png" },
+    { id: 308, name: "Cama Simples 🛏️", category: "Aventureiros", desc: "Descanso seguro por uma noite.", price: 1, image: "assets/bread.png" },
+    { id: 309, name: "Quarto Compartilhado 🛌", category: "Aventureiros", desc: "Até 6 camaradas.", price: 5, image: "assets/bread.png" },
+    { id: 310, name: "Suíte do Aventureiro 🏰", category: "Aventureiros", desc: "Quarto privado na sede da guilda.", price: 10, image: "assets/armor.png" },
+    { id: 311, name: "Missões de Investigação 🔍", category: "Aventureiros", desc: "Contratos de busca e informações.", price: 15, image: "assets/sword.png" },
+    { id: 312, name: "Missões de Caçada 🦴", category: "Aventureiros", desc: "Contratos focados em eliminar ameaças específicas.", price: 20, image: "assets/sword.png" },
+    { id: 313, name: "Missões de Proteção 🛡️", category: "Aventureiros", desc: "Escolta de VIPs ou guarda de locais importantes.", price: 25, image: "assets/shield.png" },
+    { id: 314, name: "Missões de Exploração 🗺️", category: "Aventureiros", desc: "Mapeamento de ruínas, cavernas e novos territórios.", price: 30, image: "assets/bread.png" },
+
+    // Doca de Cristal
+    { id: 401, name: "Bote Pequeno 🛶", category: "Doca", desc: "2 pessoas, remo manual.", price: 50, image: "assets/shield.png" },
+    { id: 402, name: "Navio Mercante 🚢", category: "Doca", desc: "Tripulação de 10, grande espaço de carga.", price: 5000, image: "assets/shield.png" },
+    { id: 403, name: "Navio de Guerra ⚔️🚢", category: "Doca", desc: "Tripulação de 20, equipado com canhões.", price: 10000, image: "assets/shield.png" },
+    { id: 404, name: "Barco de Pesca 🎣", category: "Doca", desc: "4 pessoas, simples.", price: 700, image: "assets/shield.png" },
+    { id: 405, name: "Veleiro Pequeno ⛵", category: "Doca", desc: "6 pessoas, movido a vento.", price: 1000, image: "assets/shield.png" },
+    { id: 406, name: "Canoa Rápida 🛶💨", category: "Doca", desc: "2 pessoas, desliza melhor na água.", price: 300, image: "assets/shield.png" },
+    { id: 407, name: "Rede de Pesca Reforçada 🎣", category: "Doca", desc: "Ideal para pesca em alto mar ou imobilização.", price: 20, image: "assets/shield.png" },
+    { id: 408, name: "Cordas Náuticas Resistentes (15m) 🪢", category: "Doca", desc: "Material naval de alta durabilidade.", price: 15, image: "assets/shield.png" },
+    { id: 409, name: "Âncora Pequena ⚓", category: "Doca", desc: "Para embarcações de pequeno e médio porte.", price: 50, image: "assets/shield.png" },
+    { id: 410, name: "Olho do Vigia 🔭", category: "Doca", desc: "Luneta de longo alcance.", price: 200, image: "assets/potion.png" },
+    { id: 411, name: "Cavalo de Guerra 🏇⚔️", category: "Doca", desc: "Montaria treinada para combate.", price: 200, image: "assets/armor.png" },
+    { id: 412, name: "Carruagem de Luxo 🏎️", category: "Doca", desc: "Transporte confortável usado pela nobreza.", price: 700, image: "assets/armor.png" },
+    { id: 413, name: "Bússola de Capitão 🧭", category: "Doca", desc: "Indica a direção do vento.", price: 75, image: "assets/potion.png" },
+    { id: 414, name: "Mapa Náutico 🗺️", category: "Doca", desc: "Regiões costeiras.", price: 100, image: "assets/bread.png" },
+    { id: 415, name: "Cavalo Comum 🐎", category: "Doca", desc: "Montaria básica para viagens terrestres.", price: 125, image: "assets/armor.png" },
+    { id: 416, name: "Camelo Comum 🐫", category: "Doca", desc: "Ideal para travessias em terrenos áridos.", price: 150, image: "assets/armor.png" },
+    { id: 417, name: "Burro de Carga 🐴", category: "Doca", desc: "Transporte de suprimentos e equipamentos.", price: 100, image: "assets/armor.png" },
+    { id: 418, name: "Pônei 🐎", category: "Doca", desc: "Ideal para anões e pequenos viajantes.", price: 100, image: "assets/armor.png" },
+    { id: 419, name: "Carroça Simples 🚛", category: "Doca", desc: "Espaço de carga médio, requer 2 cavalos.", price: 200, image: "assets/armor.png" },
+    { id: 420, name: "Carroça Reforçada 🏰🚛", category: "Doca", desc: "Protegida contra flechas e impactos.", price: 500, image: "assets/armor.png" },
+
+    // Loja dos Inventores
+    { id: 501, name: "Bomba Incendiária 🔥", category: "Inventores", desc: "Causa 2d6 de dano de fogo. CD 13 Destreza.", price: 25, image: "assets/potion.png" },
+    { id: 502, name: "Bomba Gélida ❄️", category: "Inventores", desc: "Congela o terreno e causa 2d6 de dano de frio.", price: 25, image: "assets/potion.png" },
+    { id: 503, name: "Bomba Máxima 💣", category: "Inventores", desc: "6d6 de dano à sua escolha. CD 15 Destreza.", price: 80, image: "assets/potion.png" },
+    { id: 504, name: "Mochila de Propulsão Experimental 🎒", category: "Inventores", desc: "Não testada! Use por sua conta e risco.", price: 800, image: "assets/armor.png" },
+    { id: 505, name: "Mini Autômato 🤖", category: "Inventores", desc: "Pequeno robô que segue comandos simples.", price: 300, image: "assets/sword.png" },
+    { id: 506, name: "Bomba Ácida 🧪", category: "Inventores", desc: "Corrói metal e carne, 2d6 de dano.", price: 25, image: "assets/potion.png" },
+    { id: 507, name: "Bomba Tóxica ☠️", category: "Inventores", desc: "Nuvem venenosa, 1d6 de dano/turno.", price: 25, image: "assets/potion.png" },
+    { id: 508, name: "Bomba de Fumaça 💨", category: "Inventores", desc: "Cobre 6m, cegando inimigos.", price: 25, image: "assets/potion.png" },
+    { id: 509, name: "Bastão de Choque ⚡", category: "Inventores", desc: "Arma corpo a corpo, 1d8 elétrico.", price: 200, image: "assets/sword.png" },
+    { id: 510, name: "Garras Retráteis 🐾", category: "Inventores", desc: "Automáticas e afiadas.", price: 350, image: "assets/sword.png" },
+    { id: 511, name: "Bomba Superior 💣", category: "Inventores", desc: "4d6 de dano à escolha. CD 14 Destreza. Raio de 4.5m.", price: 50, image: "assets/potion.png" },
+    { id: 512, name: "Arpéu Reforçado 🧗", category: "Inventores", desc: "Permite escalar superfícies difíceis com facilidade.", price: 75, image: "assets/sword.png" },
+    { id: 513, name: "5x Munição Explosiva 🎯", category: "Inventores", desc: "Balas ou flechas com +1d6 de dano adicional.", price: 100, image: "assets/sword.png" },
+    { id: 514, name: "Óculos de Visão Noturna 🕶️", category: "Inventores", desc: "Permite enxergar no escuro total até 18 metros.", price: 150, image: "assets/armor.png" },
+    { id: 515, name: "Lança-Raios Elétricos ⚡", category: "Inventores", desc: "1d6 de dano elétrico por disparo. Possui 5 usos.", price: 500, image: "assets/sword.png" },
+    { id: 516, name: "Machado Giratório 🪓", category: "Inventores", desc: "Engenhoca de combate para mãos livres.", price: 700, image: "assets/sword.png" },
+
+    // Loja de Itens Mágicos
+    { id: 601, name: "Poção de Restauração 💪", category: "Mágico", desc: "Permite usar os dados de vida para cura imediata.", price: 50, image: "assets/potion.png" },
+    { id: 602, name: "Poção de Cura Suprema ❤️", category: "Mágico", desc: "Restaura 10d4+20 HP.", price: 1000, image: "assets/potion.png" },
+    { id: 603, name: "Poção de Mana Master 🔷", category: "Mágico", desc: "Restaura 1d12 pontos de mana.", price: 600, image: "assets/potion.png" },
+    { id: 604, name: "Poção de Invisibilidade 👁️🗨️", category: "Mágico", desc: "Fica invisível por 1 minuto.", price: 500, image: "assets/potion.png" },
+    { id: 605, name: "Gema Arcana 💠", category: "Mágico", desc: "Utilizada para encantamentos e rituais.", price: 50, image: "assets/potion.png" },
+    { id: 606, name: "Poção de Velocidade 🏃‍♂️", category: "Mágico", desc: "Dobra deslocamento por 1 min.", price: 400, image: "assets/potion.png" },
+    { id: 607, name: "Poção Sopro de Fogo 🔥", category: "Mágico", desc: "3d6 de dano de fogo (1 uso).", price: 150, image: "assets/potion.png" },
+    { id: 608, name: "Pergaminho de Magia 1º Nível 📜", category: "Mágico", desc: "Mísseis Mágicos, Escudo, etc.", price: 60, image: "assets/bread.png" },
+    { id: 609, name: "Pergaminho de Magia 2º Nível ✨", category: "Mágico", desc: "Invisibilidade, etc.", price: 120, image: "assets/bread.png" },
+    { id: 610, name: "Poção de Cura Simples ❤️", category: "Mágico", desc: "Restaura 2d4+2 HP.", price: 50, image: "assets/potion.png" },
+    { id: 611, name: "Poção de Cura Maior 💖", category: "Mágico", desc: "Restaura 4d4+4 HP.", price: 150, image: "assets/potion.png" },
+    { id: 612, name: "Poção de Cura Superior 💕", category: "Mágico", desc: "Restaura 8d4+2 HP.", price: 450, image: "assets/potion.png" },
+    { id: 613, name: "Poção de Mana Simples 🔵", category: "Mágico", desc: "Restaura 1d4 pontos de mana.", price: 100, image: "assets/potion.png" },
+    { id: 614, name: "Poção de Mana Maior 🔹", category: "Mágico", desc: "Restaura 1d6 pontos de mana.", price: 150, image: "assets/potion.png" },
+    { id: 615, name: "Poção de Mana Superior 🔷", category: "Mágico", desc: "Restaura 1d8 pontos de mana.", price: 300, price: 300, image: "assets/potion.png" },
+    { id: 616, name: "Poção de Mana Suprema 🔷", category: "Mágico", desc: "Restaura 1d10 pontos de mana.", price: 400, image: "assets/potion.png" },
+    { id: 617, name: "Pergaminho: Truque 📜", category: "Mágico", desc: "Magias básicas como Luz ou Prestidigitação.", price: 50, image: "assets/bread.png" },
+    { id: 618, name: "Pergaminho de Magia 3º Nível ⚡", category: "Mágico", desc: "Relâmpago, Contra-Maldição, etc.", price: 180, image: "assets/bread.png" },
+    { id: 619, name: "Pergaminho de Magia 4º Nível 🔥", category: "Mágico", desc: "Teletransporte, Muralha de Fogo, etc.", price: 250, image: "assets/bread.png" },
+
+    // Ferraria Martelo e Bigode
+    { id: 701, name: "Aprimoramento I (Arma) ⚔️", category: "Ferraria", desc: "Afiamento, concede +1 de dano.", price: 100, image: "assets/sword.png" },
+    { id: 702, name: "Encantamento Incomum (Arma +1) ⚡", category: "Ferraria", desc: "+1 acerto/+1 dano e dano mágico. Requer Essência.", price: 350, image: "assets/sword.png" },
+    { id: 703, name: "Armadura +1 ✨", category: "Ferraria", desc: "Concede +1 CA mágico. Requer Essência.", price: 500, image: "assets/armor.png" },
+    { id: 704, name: "Escudo +1 ✨", category: "Ferraria", desc: "+1 CA mágico.", price: 400, image: "assets/armor.png" },
+    { id: 705, name: "Aprimoramento II (Arma) 🔥", category: "Ferraria", desc: "+1 no acerto.", price: 150, image: "assets/sword.png" },
+    { id: 706, name: "Aprimoramento III (Mestre) ⚡", category: "Ferraria", desc: "+1 acerto e +1 dano.", price: 250, image: "assets/sword.png" },
+    { id: 707, name: "Melhoria Escudo I 🛡️", category: "Ferraria", desc: "+1 CA contra ataques frontais (reação).", price: 200, image: "assets/armor.png" },
+    { id: 708, name: "Reparo de Equipamento 🛠️", category: "Ferraria", desc: "Conserto de armas ou armaduras danificadas.", price: 10, image: "assets/armor.png" },
+    { id: 709, name: "Forja de Arma Simples 🔨", category: "Ferraria", desc: "Criação de uma arma comum conforme o padrão.", price: 50, image: "assets/sword.png" },
+    { id: 710, name: "Aprimoramento Armadura I 🏋️", category: "Ferraria", desc: "Leveza e resistência aprimorada.", price: 300, image: "assets/armor.png" },
+    { id: 711, name: "Aprimoramento Armadura II 💎", category: "Ferraria", desc: "Redução de -1 em danos físicos.", price: 400, image: "assets/armor.png" },
+    { id: 712, name: "Aprimoramento Armadura III ✨", category: "Ferraria", desc: "Resistência especial (-2 dano) e anti-oxidante.", price: 700, image: "assets/armor.png" },
+    { id: 713, name: "Melhoria Escudo II 🔨", category: "Ferraria", desc: "Empunhadura de estabilidade. Vantagem contra desarmar.", price: 120, image: "assets/armor.png" },
+    { id: 714, name: "Reparo de Armaduras 🛡️", category: "Ferraria", desc: "Manutenção de placas e malhas.", price: 15, image: "assets/armor.png" },
+
+    // Empório do Andarilho
+    { id: 801, name: "Mochila Resistente 🎒", category: "Empório", desc: "Durabilidade garantida para suas viagens.", price: 20, image: "assets/armor.png" },
+    { id: 802, name: "Kit de Cozinha de Aventureiro 🍲", category: "Empório", desc: "Tudo o que você precisa para cozinhar no mato.", price: 15, image: "assets/bread.png" },
+    { id: 803, name: "Kit de Herbalismo 🌿", category: "Empório", desc: "Para identificação e preparo de ervas.", price: 50, image: "assets/bread.png" },
+    { id: 804, name: "Ração de Viagem (7 dias) 🥖", category: "Empório", desc: "Suprimentos básicos.", price: 10, image: "assets/bread.png" },
+    { id: 805, name: "Pedra Guia ✨", category: "Empório", desc: "Aponta sempre para o norte.", price: 100, image: "assets/bread.png" },
+    { id: 806, name: "Cantil de Água 💧", category: "Empório", desc: "Essencial para o deserto.", price: 5, image: "assets/potion.png" },
+    { id: 807, name: "Cordas de Cânhamo (15m) 🪢", category: "Empório", desc: "Corda rústica e funcional.", price: 10, image: "assets/shield.png" },
+    { id: 808, name: "Tocha (1 hora) 🔥", category: "Empório", desc: "Iluminação básica para masmorras.", price: 1, image: "assets/potion.png" },
+    { id: 809, name: "Pederneira e Aço 🔥", category: "Empório", desc: "Essencial para acender fogueiras.", price: 5, image: "assets/sword.png" },
+    { id: 810, name: "Kit de Escalada 🧗", category: "Empório", desc: "Ganchos e cordas reforçadas para montanhismo.", price: 25, image: "assets/shield.png" },
+    { id: 811, name: "Kit de Caçador 🎯", category: "Empório", desc: "Iscas, laços e redes de captura.", price: 30, image: "assets/sword.png" },
+    { id: 812, name: "Mapa de Regiões Selvagens 🗺️", category: "Empório", desc: "Guia básico para exploradores terrestres.", price: 25, image: "assets/bread.png" },
+    { id: 813, name: "Bússola de Bronze 🧭", category: "Empório", desc: "Instrumento de navegação terrestre.", price: 50, image: "assets/potion.png" },
+    { id: 814, name: "Kits Variados 🧰", category: "Empório", desc: "Ferramentas diversas para necessidades gerais.", price: 40, image: "assets/shield.png" },
+
+    // Biblioteca de Pedravive
+    { id: 901, name: "Mapa Completo de Elvenor 🗺️", category: "Biblioteca", desc: "O guia definitivo das terras de Elvenor.", price: 50, image: "assets/bread.png" },
+    { id: 902, name: "Tomo Arcano 📖", category: "Biblioteca", desc: "Vantagem em testes de Arcano por 1 semana.", price: 300, image: "assets/bread.png" },
+    { id: 903, name: "Pesquisa Profunda 🔍", category: "Biblioteca", desc: "Informações detalhadas sobre um assunto específico.", price: 25, image: "assets/bread.png" },
+    { id: 904, name: "Mapa do Subterrâneo 🗺️", category: "Biblioteca", desc: "Passagens ocultas e cavernas.", price: 250, image: "assets/bread.png" },
+    { id: 905, name: "Livro de Criaturas Raras 📖", category: "Biblioteca", desc: "Conhecimento sobre monstros míticos.", price: 150, image: "assets/bread.png" },
+    { id: 906, name: "Mapa Básico da Região 🗺️", category: "Biblioteca", desc: "Cartografia simples dos arredores.", price: 10, image: "assets/bread.png" },
+    { id: 907, name: "Mapa de Ruínas 🗺️", category: "Biblioteca", desc: "Localização de templos e cidades perdidas.", price: 150, image: "assets/bread.png" },
+    { id: 908, name: "Livro Comum 📖", category: "Biblioteca", desc: "Histórias, fábulas e lendas locais.", price: 5, image: "assets/bread.png" },
+    { id: 909, name: "Livro de Criaturas Comuns 📖", category: "Biblioteca", desc: "Bestiário de animais da região.", price: 25, image: "assets/bread.png" },
+    { id: 910, name: "Livro de Maldições 📖", category: "Biblioteca", desc: "Dicas para lidar com magia negra.", price: 400, image: "assets/bread.png" },
+    { id: 911, name: "Pesquisa Simples 🔍", category: "Biblioteca", desc: "Resposta rápida para uma dúvida comum.", price: 5, image: "assets/bread.png" },
+    { id: 912, name: "Consulta Mágica 🔮", category: "Biblioteca", desc: "Apoio direto dos magos bibliotecários.", price: 100, image: "assets/bread.png" },
+
+    // Templo do Escudo Luminoso
+    { id: 1001, name: "Bênção da Luz ⛨", category: "Templo", desc: "1h de dano radiante adicional em ataques corpo a corpo.", price: 50, image: "assets/potion.png" },
+    { id: 1002, name: "Água Benta 🧴", category: "Templo", desc: "Eficaz contra mortos-vivos e demônios.", price: 25, image: "assets/potion.png" },
+    { id: 1003, name: "Lâmina da Redenção ⚔️", category: "Templo", desc: "+1 contra mortos-vivos, brilha com luz sagrada.", price: 1200, image: "assets/sword.png" },
+    { id: 1004, name: "Bênção da Pureza ⛨", category: "Templo", desc: "Resistência a venenos e doenças por 1h.", price: 75, image: "assets/potion.png" },
+    { id: 1005, name: "Amuleto da Luz Eterna 📿", category: "Templo", desc: "Gera luz e repele mortos-vivos fracos.", price: 500, image: "assets/armor.png" },
+    { id: 1006, name: "Óleo Consagrado 🧴", category: "Templo", desc: "Imbui uma arma com dano radiante por 1h.", price: 75, image: "assets/potion.png" },
+    { id: 1007, name: "Pergaminho de Remover Maldição 📜", category: "Templo", desc: "Magia de 3º nível para purificação.", price: 200, image: "assets/bread.png" },
+    { id: 1008, name: "Bênção do Caçador ⛨", category: "Templo", desc: "Sinta mortos-vivos a até 18m por 1h.", price: 100, image: "assets/potion.png" },
+    { id: 1009, name: "Poção Res. Necromântico 🧴", category: "Templo", desc: "Proteção contra energias da morte.", price: 300, image: "assets/potion.png" },
+    { id: 1010, name: "Pergaminho Sagrado: Truque 📜", category: "Templo", desc: "Luz, Chama Sagrada ou Resistência.", price: 20, image: "assets/bread.png" },
+    { id: 1011, name: "Pergaminho Sagrado Lvl 1 📜", category: "Templo", desc: "Proteção contra o Mal ou Cura.", price: 60, image: "assets/bread.png" },
+    { id: 1012, name: "Pergaminho Sagrado Lvl 2 📜", category: "Templo", desc: "Arma Espiritual ou Restaurar Vitalidade.", price: 120, image: "assets/bread.png" },
+    { id: 1013, name: "Pergaminho Sagrado Lvl 4 📜", category: "Templo", desc: "Banimento ou Guardião Espiritual.", price: 320, image: "assets/bread.png" },
+    { id: 1014, name: "Símbolo Sagrado Consagrado 📿", category: "Templo", desc: "+1 em conjuração divina contra mortos-vivos.", price: 800, image: "assets/armor.png" }
 ];
 
 // App State
 let appState = {
     gold: 0,
-    cart: [],
+    cart: [], // Stores { ...item, quantity: 1 }
     wishlist: [],
     currentCategory: "Todos",
     searchQuery: ""
@@ -103,7 +210,7 @@ function init() {
     if (appState.gold > 0) {
         showShop();
     }
-    
+
     // Setup listeners
     startBtn.addEventListener("click", () => {
         const goldVal = parseInt(goldInput.value);
@@ -120,10 +227,10 @@ function init() {
     // Sidebar toggles
     cartBtn.addEventListener("click", () => cartSidebar.classList.remove("hidden"));
     closeCartBtn.addEventListener("click", () => cartSidebar.classList.add("hidden"));
-    
+
     wishlistBtn.addEventListener("click", () => wishlistSidebar.classList.remove("hidden"));
     closeWishlistBtn.addEventListener("click", () => wishlistSidebar.classList.add("hidden"));
-    
+
     closeItemModalBtn.addEventListener("click", () => itemModal.classList.add("hidden"));
 
     // Filters
@@ -160,7 +267,7 @@ function showShop() {
 // Render Items Grid
 function renderItems() {
     itemsGrid.innerHTML = "";
-    
+
     const filteredItems = DB_ITEMS.filter(item => {
         const matchCat = appState.currentCategory === "Todos" || item.category === appState.currentCategory;
         const matchSearch = item.name.toLowerCase().includes(appState.searchQuery) || item.desc.toLowerCase().includes(appState.searchQuery);
@@ -174,7 +281,7 @@ function renderItems() {
 
     filteredItems.forEach(item => {
         const inWishlist = appState.wishlist.some(w => w.id === item.id);
-        
+
         const card = document.createElement("div");
         card.className = "item-card";
         card.innerHTML = `
@@ -229,27 +336,48 @@ function openItemDetails(id) {
 // Cart Logic
 function addToCart(id, closemodal = false) {
     const item = DB_ITEMS.find(i => i.id === id);
-    appState.cart.push(item);
+    const cartItem = appState.cart.find(i => i.id === id);
+
+    if (cartItem) {
+        cartItem.quantity += 1;
+    } else {
+        appState.cart.push({ ...item, quantity: 1 });
+    }
+
     showToast(`${item.name} adicionado ao carrinho!`, "success", "fa-check");
-    
+
     if (closemodal) itemModal.classList.add("hidden");
-    
+
     updateUI();
     saveState();
 }
 
-function removeFromCart(index) {
-    appState.cart.splice(index, 1);
+function updateQuantity(id, delta) {
+    const cartItem = appState.cart.find(i => i.id === id);
+    if (!cartItem) return;
+
+    cartItem.quantity += delta;
+
+    if (cartItem.quantity <= 0) {
+        removeFromCart(id);
+    } else {
+        updateUI();
+        saveState();
+    }
+}
+
+function removeFromCart(id) {
+    appState.cart = appState.cart.filter(i => i.id !== id);
     updateUI();
     saveState();
 }
 
 // Wishlist Logic
 function toggleWishlist(id, event) {
-    if(event) event.stopPropagation(); // prevent clicking card
+    if (event) event.stopPropagation(); // prevent clicking card
     const item = DB_ITEMS.find(i => i.id === id);
     const index = appState.wishlist.findIndex(w => w.id === id);
-    
+
     if (index === -1) {
         appState.wishlist.push(item);
         showToast(`${item.name} adicionado aos desejos!`, "info", "fa-heart");
@@ -257,7 +385,7 @@ function toggleWishlist(id, event) {
         appState.wishlist.splice(index, 1);
         showToast(`${item.name} removido dos desejos.`, "info", "fa-heart-crack");
     }
-    
+
     renderItems();
     updateUI();
     saveState();
@@ -270,7 +398,7 @@ function handleCheckout() {
         return;
     }
 
-    const total = appState.cart.reduce((sum, item) => sum + item.price, 0);
+    const total = appState.cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
     if (appState.gold >= total) {
         appState.gold -= total;
@@ -290,13 +418,14 @@ function updateUI() {
     currentGoldEl.innerText = appState.gold;
 
     // Cart
-    cartCount.innerText = appState.cart.length;
-    cartCount.style.display = appState.cart.length > 0 ? "block" : "none";
-    
+    const totalItems = appState.cart.reduce((sum, i) => sum + i.quantity, 0);
+    cartCount.innerText = totalItems;
+    cartCount.style.display = totalItems > 0 ? "block" : "none";
+
     cartItemsContainer.innerHTML = "";
     let total = 0;
-    appState.cart.forEach((item, index) => {
-        total += item.price;
+    appState.cart.forEach((item) => {
+        total += item.price * item.quantity;
         const div = document.createElement("div");
         div.className = "cart-item";
         div.innerHTML = `
@@ -304,8 +433,13 @@ function updateUI() {
             <div class="cart-item-details">
                 <div class="cart-item-name">${item.name}</div>
                 <div class="cart-item-price"><i class="fa-solid fa-coins gold-icon"></i> ${item.price}</div>
+                <div class="cart-quantity-controls">
+                    <button onclick="updateQuantity(${item.id}, -1)">-</button>
+                    <span>${item.quantity}</span>
+                    <button onclick="updateQuantity(${item.id}, 1)">+</button>
+                </div>
             </div>
-            <button class="remove-btn" onclick="removeFromCart(${index})"><i class="fa-solid fa-trash"></i></button>
+            <button class="remove-btn" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash"></i></button>
         `;
         cartItemsContainer.appendChild(div);
     });
@@ -313,7 +447,7 @@ function updateUI() {
     if (appState.cart.length === 0) {
         cartItemsContainer.innerHTML = "<p style='color: var(--text-muted)'>Nenhum item adicionado à sacola.</p>";
     }
-    
+
     cartTotalEl.innerText = total;
 
     // Check affordance
@@ -353,7 +487,7 @@ function showToast(message, type = "info", icon = "fa-info-circle") {
     const toast = document.createElement("div");
     toast.className = `toast ${type}`;
     toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${message}</span>`;
-    
+
     toastContainer.appendChild(toast);
 
     setTimeout(() => {
@@ -377,9 +511,26 @@ function loadState() {
         try {
             const parsed = JSON.parse(saved);
             appState.gold = parsed.gold || 0;
-            appState.cart = parsed.cart || [];
             appState.wishlist = parsed.wishlist || [];
-        } catch(e) {
+
+            // Migration for old cart format
+            const savedCart = parsed.cart || [];
+            if (savedCart.length > 0 && !savedCart[0].quantity) {
+                // Group old individual items into quantities
+                const newCart = [];
+                savedCart.forEach(item => {
+                    const existing = newCart.find(i => i.id === item.id);
+                    if (existing) {
+                        existing.quantity += 1;
+                    } else {
+                        newCart.push({ ...item, quantity: 1 });
+                    }
+                });
+                appState.cart = newCart;
+            } else {
+                appState.cart = savedCart;
+            }
+        } catch (e) {
             console.error("Error loading saved state", e);
         }
     }
