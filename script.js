@@ -179,6 +179,7 @@ const shopScreen = document.getElementById("shop-screen");
 const goldInput = document.getElementById("gold-input");
 const startBtn = document.getElementById("start-btn");
 const currentGoldEl = document.getElementById("current-gold");
+const editGoldBtn = document.getElementById("edit-gold-btn");
 
 const itemsGrid = document.getElementById("items-grid");
 const categoryList = document.getElementById("category-list");
@@ -251,6 +252,22 @@ function init() {
 
     // Checkout
     checkoutBtn.addEventListener("click", handleCheckout);
+
+    // Edit Gold
+    editGoldBtn.addEventListener("click", () => {
+        const newVal = prompt("Digite a nova quantidade de moedas de ouro:", appState.gold);
+        if (newVal !== null) {
+            const parsed = parseInt(newVal);
+            if (!isNaN(parsed) && parsed >= 0) {
+                appState.gold = parsed;
+                saveState();
+                updateUI();
+                showToast(`Seu ouro foi alterado para ${parsed}.`, "info", "fa-coins");
+            } else {
+                showToast("Por favor, insira um valor numérico válido.", "error", "fa-triangle-exclamation");
+            }
+        }
+    });
 
     // Initial render
     renderItems();
