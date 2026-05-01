@@ -8,21 +8,22 @@ const DB_ITEMS = [
     { id: 106, name: "Seninha (Batida de Coco) ⛑️", category: "Taverna", desc: "Uma batida de coco refrescante e não alcoólica.", price: 10, image: "assets/bebida.jpg" },
     { id: 107, name: "Licor de Frutas da Aurora 🍷✨", category: "Taverna", desc: "Um licor refinado que brilha com a luz da manhã.", price: 10, image: "assets/bebida.jpg" },
     { id: 108, name: "Garrafão de Uísque Inferiano 🥃💀", category: "Taverna", desc: "Só para os corajosos! Uma bebida extremamente forte vinda das profundezas.", price: 20, image: "assets/bebida.jpg" },
-    { id: 109, name: "Jogo de Dados (Aposta Mínima) 🎲", category: "Taverna", desc: "Tente sua sorte nos dados da Taverna.", price: 5, image: "assets/jogo.jpg" },
+    { id: 109, name: "Jogo de Dados (Aposta Mínima) 🎲", category: "Taverna", desc: "Tente sua sorte nos dados da Taverna.", price: 5, image: "assets/jogo_dados.png" },
     { id: 110, name: "Cartas dos Mercadores 🃏", category: "Taverna", desc: "Aposta média em um jogo de cartas tenso.", price: 20, image: "assets/jogo.jpg" },
-    { id: 111, name: "Roleta do Destino 🎡", category: "Taverna", desc: "Altos riscos, grandes prêmios. Quem sabe o que o destino reserva?", price: 50, image: "assets/jogo.jpg" },
+    { id: 111, name: "Roleta do Destino 🎡", category: "Taverna", desc: "Altos riscos, grandes prêmios. Quem sabe o que o destino reserva?", price: 50, image: "assets/roleta_destino.png" },
     { id: 112, name: "Briga no Pátio 🥊", category: "Taverna", desc: "Soco inglês incluído. Briga para diversão (e alguns dentes a menos).", price: 0, image: "assets/jogo.jpg" },
     { id: 113, name: "Desafio do Mc Daleste e Mc Kelvin 🍺💫", category: "Taverna", desc: "Beba e tente ficar de pé. Um desafio de resistência.", price: 5, image: "assets/jogo.jpg" },
     { id: 114, name: "Histórias de Aventureiros 📖", category: "Taverna", desc: "Ouça ou pague para contar a sua própria história épica.", price: 2, image: "assets/livro.jpg" },
+    { id: 115, name: "Baralho de Tarot 🃏✨", category: "Taverna", desc: "Um baralho místico que permite vislumbrar o destino. Pode ser usado no seu inventário.", price: 50, image: "assets/tarot.png" },
 
     // Guarnição de Pedra
-    { id: 201, name: "Pablo Escobar – Chefe de Contrabando 💰", category: "Caçadores", desc: "PROCURADO! Vivo: 1000 PP, Morto: 700 PP. Visto por último na Baía de Nerath.", price: 1000, image: "assets/procurado.jpg" },
-    { id: 202, name: "Elza 'A Ladra de Gelo' ❄️", category: "Caçadores", desc: "PROCURADA! Viva: 750 PP, Morta: 500 PP. Vista na Vila Cruzeiro.", price: 750, image: "assets/procurado.jpg" },
-    { id: 203, name: "'Mão Negra' Krug 🩸", category: "Caçadores", desc: "PROCURADO! Mercenário brutal. Vivo: 500 PP, Morto: 400 PP. Visto no Sertão.", price: 500, image: "assets/procurado.jpg" },
+    { id: 201, name: "Pablo Escobar – Chefe de Contrabando 💰", category: "Caçadores", desc: "PROCURADO! Vivo: 1000 PP, Morto: 700 PP. Visto por último na Baía de Nerath.", price: 1000, image: "assets/pablo_poster.png" },
+    { id: 202, name: "Elza 'A Ladra de Gelo' ❄️", category: "Caçadores", desc: "PROCURADA! Viva: 750 PP, Morta: 500 PP. Vista na Vila Cruzeiro.", price: 750, image: "assets/elza_poster.png" },
+    { id: 203, name: "'Mão Negra' Krug 🩸", category: "Caçadores", desc: "PROCURADO! Mercenário brutal. Vivo: 500 PP, Morto: 400 PP. Visto no Sertão.", price: 500, image: "assets/krug_poster.png" },
     { id: 204, name: "Garras de Sombra 🗡️", category: "Caçadores", desc: "Grupo de assassinos. 250 PP por captura, 100 PP por info.", price: 250, image: "assets/procurado.jpg" },
-    { id: 205, name: "Caçada Simples 🎯", category: "Caçadores", desc: "Contrato para lidar com bandidos menores.", price: 0, image: "assets/cacada.jpg" },
+    { id: 205, name: "Caçada Simples 🎯", category: "Caçadores", desc: "Contrato para lidar com bandidos menores.", price: 0, image: "assets/cacada_simples.png" },
     { id: 206, name: "Missão Especial 🔥", category: "Caçadores", desc: "Contrato para alvos específicos de média periculosidade.", price: 0, image: "assets/cacada.jpg" },
-    { id: 207, name: "Caçada Mortal ☠️", category: "Caçadores", desc: "Contrato para os alvos mais perigosos do reino.", price: 0, image: "assets/cacada.jpg" },
+    { id: 207, name: "Caçada Mortal ☠️", category: "Caçadores", desc: "Contrato para os alvos mais perigosos do reino.", price: 0, image: "assets/cacada_mortal.png" },
 
     // Sede dos Aventureiros
     { id: 301, name: "Inscrição de Aventureiro ✍️", category: "Aventureiros", desc: "Registro oficial para novatos na guilda.", price: 25, image: "assets/pergaminho.jpg" },
@@ -169,6 +170,7 @@ let appState = {
     gold: 0,
     cart: [], // Stores { ...item, quantity: 1 }
     wishlist: [],
+    inventory: [], // Stores { ...item }
     currentCategory: "Todos",
     searchQuery: ""
 };
@@ -199,9 +201,50 @@ const closeWishlistBtn = document.getElementById("close-wishlist");
 const wishlistItemsContainer = document.getElementById("wishlist-items");
 const wishlistCount = document.getElementById("wishlist-count");
 
+const inventoryBtn = document.getElementById("inventory-btn");
+const inventorySidebar = document.getElementById("inventory-sidebar");
+const closeInventoryBtn = document.getElementById("close-inventory");
+const inventoryItemsContainer = document.getElementById("inventory-items");
+const inventoryCount = document.getElementById("inventory-count");
+
+const tarotModal = document.getElementById("tarot-modal");
+const closeTarotModalBtn = document.getElementById("close-tarot-modal");
+const tarotCard = document.getElementById("tarotCard");
+const drawBtn = document.getElementById("drawBtn");
+const cardImage = document.getElementById("cardImage");
+const resultInfo = document.getElementById("resultInfo");
+const cardNameEl = document.getElementById("cardName");
+const cardStatusEl = document.getElementById("cardStatus");
+
 const itemModal = document.getElementById("item-modal");
 const closeItemModalBtn = document.getElementById("close-item-modal");
 const itemDetailContent = document.querySelector(".item-detail-content");
+
+const diceModal = document.getElementById("dice-modal");
+const closeDiceModalBtn = document.getElementById("close-dice-modal");
+const diceResultEl = document.getElementById("dice-result");
+const rollDiceBtn = document.getElementById("rollDiceBtn");
+const diceVisual = document.getElementById("dice-visual");
+const diceTypeBtns = document.querySelectorAll(".dice-type-btn");
+
+const wheelModal = document.getElementById("wheel-modal");
+const closeWheelModalBtn = document.getElementById("close-wheel-modal");
+const wheelCanvas = document.getElementById("wheelCanvas");
+const wheelSegmentsInput = document.getElementById("wheel-segments");
+const spinWheelBtn = document.getElementById("spinWheelBtn");
+const wheelResultText = document.getElementById("wheel-result-text");
+
+const betModal = document.getElementById("bet-modal");
+const customBetInput = document.getElementById("custom-bet-input");
+const confirmBetBtn = document.getElementById("confirm-bet-btn");
+const cancelBetBtn = document.getElementById("cancel-bet-btn");
+
+let currentDieType = 6;
+let isRollingDice = false;
+let isSpinningWheel = false;
+let wheelRotation = 0;
+let currentUsingDice = null; // Track which dice item is being used
+let pendingAddToCart = null; // Track item pending bet confirmation
 
 const toastContainer = document.getElementById("toast-container");
 
@@ -232,7 +275,59 @@ function init() {
     wishlistBtn.addEventListener("click", () => wishlistSidebar.classList.remove("hidden"));
     closeWishlistBtn.addEventListener("click", () => wishlistSidebar.classList.add("hidden"));
 
+    inventoryBtn.addEventListener("click", () => inventorySidebar.classList.remove("hidden"));
+    closeInventoryBtn.addEventListener("click", () => inventorySidebar.classList.add("hidden"));
+
     closeItemModalBtn.addEventListener("click", () => itemModal.classList.add("hidden"));
+    closeTarotModalBtn.addEventListener("click", () => tarotModal.classList.add("hidden"));
+    closeDiceModalBtn.addEventListener("click", () => diceModal.classList.add("hidden"));
+    closeWheelModalBtn.addEventListener("click", () => wheelModal.classList.add("hidden"));
+
+    // Dice Logic Setup
+    diceTypeBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            diceTypeBtns.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            currentDieType = parseInt(btn.dataset.die);
+            diceResultEl.textContent = "?";
+        });
+    });
+    rollDiceBtn.addEventListener("click", rollDice);
+
+    // Wheel Logic Setup
+    wheelSegmentsInput.addEventListener("input", () => {
+        let val = parseInt(wheelSegmentsInput.value);
+        if (val < 2) val = 2;
+        if (val > 20) val = 20;
+        wheelSegmentsInput.value = val;
+        drawWheel();
+    });
+    spinWheelBtn.addEventListener("click", spinWheel);
+
+    // Bet Modal Setup
+    cancelBetBtn.addEventListener("click", () => {
+        betModal.classList.add("hidden");
+        pendingAddToCart = null;
+    });
+
+    confirmBetBtn.addEventListener("click", () => {
+        if (pendingAddToCart) {
+            const betVal = parseInt(customBetInput.value);
+            if (!isNaN(betVal) && betVal >= 5) {
+                finishAddToCart(pendingAddToCart.id, betVal, pendingAddToCart.closemodal);
+                betModal.classList.add("hidden");
+                pendingAddToCart = null;
+            } else {
+                showToast("Aposta mínima é 5 ouros!", "error", "fa-triangle-exclamation");
+            }
+        }
+    });
+
+    // Tarot Logic Setup
+    drawBtn.addEventListener("click", drawCard);
+    tarotCard.addEventListener("click", () => {
+        if (!tarotCard.classList.contains("is-flipped")) drawCard();
+    });
 
     // Filters
     categoryList.addEventListener("click", (e) => {
@@ -353,12 +448,25 @@ function openItemDetails(id) {
 // Cart Logic
 function addToCart(id, closemodal = false) {
     const item = DB_ITEMS.find(i => i.id === id);
-    const cartItem = appState.cart.find(i => i.id === id);
+
+    if (id === 109) { // Jogo de Dados
+        pendingAddToCart = { id, closemodal };
+        customBetInput.value = 5;
+        betModal.classList.remove("hidden");
+        return;
+    }
+
+    finishAddToCart(id, item.price, closemodal);
+}
+
+function finishAddToCart(id, betValue, closemodal = false) {
+    const item = DB_ITEMS.find(i => i.id === id);
+    const cartItem = appState.cart.find(i => i.id === id && i.price === betValue);
 
     if (cartItem) {
         cartItem.quantity += 1;
     } else {
-        appState.cart.push({ ...item, quantity: 1 });
+        appState.cart.push({ ...item, price: betValue, quantity: 1 });
     }
 
     showToast(`${item.name} adicionado ao carrinho!`, "success", "fa-check");
@@ -419,6 +527,18 @@ function handleCheckout() {
 
     if (appState.gold >= total) {
         appState.gold -= total;
+        
+        // Move items to inventory
+        appState.cart.forEach(cartItem => {
+            // For Dice (109), we want to keep them separate if bets are different
+            const existing = appState.inventory.find(i => i.id === cartItem.id && i.price === cartItem.price);
+            if (existing) {
+                existing.quantity += cartItem.quantity;
+            } else {
+                appState.inventory.push({ ...cartItem });
+            }
+        });
+
         appState.cart = []; // empty cart
         saveState();
         updateUI();
@@ -497,6 +617,30 @@ function updateUI() {
     if (appState.wishlist.length === 0) {
         wishlistItemsContainer.innerHTML = "<p style='color: var(--text-muted)'>Sua lista de desejos mágicos está vazia.</p>";
     }
+
+    // Inventory
+    inventoryCount.innerText = appState.inventory.length;
+    inventoryCount.style.display = appState.inventory.length > 0 ? "block" : "none";
+
+    inventoryItemsContainer.innerHTML = "";
+    appState.inventory.forEach((item) => {
+        const div = document.createElement("div");
+        div.className = "inventory-item";
+        div.innerHTML = `
+            <img src="${item.image}" class="cart-item-img">
+            <div class="cart-item-details">
+                <div class="cart-item-name">${item.name}</div>
+                <div class="cart-item-price">${item.id === 109 ? `Aposta: ${item.price}` : `Qtd: ${item.quantity}`}</div>
+                ${item.id === 109 ? `<div class="cart-item-price">Qtd: ${item.quantity}</div>` : ''}
+                <button class="use-btn" onclick="useItem(${item.id}, ${item.price})">Usar</button>
+            </div>
+        `;
+        inventoryItemsContainer.appendChild(div);
+    });
+
+    if (appState.inventory.length === 0) {
+        inventoryItemsContainer.innerHTML = "<p style='color: var(--text-muted)'>Você ainda não possui itens no seu inventário.</p>";
+    }
 }
 
 // Toast Notifications
@@ -518,7 +662,8 @@ function saveState() {
     localStorage.setItem("rpgShopState", JSON.stringify({
         gold: appState.gold,
         cart: appState.cart,
-        wishlist: appState.wishlist
+        wishlist: appState.wishlist,
+        inventory: appState.inventory
     }));
 }
 
@@ -529,6 +674,7 @@ function loadState() {
             const parsed = JSON.parse(saved);
             appState.gold = parsed.gold || 0;
             appState.wishlist = parsed.wishlist || [];
+            appState.inventory = parsed.inventory || [];
 
             // Migration for old cart format
             const savedCart = parsed.cart || [];
@@ -555,3 +701,313 @@ function loadState() {
 
 // Start
 document.addEventListener("DOMContentLoaded", init);
+
+// --- Tarot System Logic ---
+const tarotCardsData = [
+    { imagem: "assets/tarot_cards/01.jpg", texto: "MAGO" },
+    { imagem: "assets/tarot_cards/02.jpg", texto: "LOUCO" },
+    { imagem: "assets/tarot_cards/03.jpg", texto: "PAPISA" },
+    { imagem: "assets/tarot_cards/04.jpg", texto: "IMPERATRIZ" },
+    { imagem: "assets/tarot_cards/05.jpg", texto: "LOUCO - INVERTIDO" },
+    { imagem: "assets/tarot_cards/06.jpg", texto: "IMPERADOR" },
+    { imagem: "assets/tarot_cards/07.jpg", texto: "PAPA" },
+    { imagem: "assets/tarot_cards/08.jpg", texto: "AMANTES" },
+    { imagem: "assets/tarot_cards/09.jpg", texto: "GUERRA" },
+    { imagem: "assets/tarot_cards/10.jpg", texto: "JUSTIÇA" },
+    { imagem: "assets/tarot_cards/11.jpg", texto: "EREMITA" },
+    { imagem: "assets/tarot_cards/12.jpg", texto: "RODA DA FORTUNA" },
+    { imagem: "assets/tarot_cards/13.jpg", texto: "FORÇA" },
+    { imagem: "assets/tarot_cards/14.jpg", texto: "O ENFORCADO" },
+    { imagem: "assets/tarot_cards/15.jpg", texto: "MORTE" },
+    { imagem: "assets/tarot_cards/16.jpg", texto: "TEMPERANÇA" },
+    { imagem: "assets/tarot_cards/17.jpg", texto: "DAIBO" },
+    { imagem: "assets/tarot_cards/18.jpg", texto: "TORRE" },
+    { imagem: "assets/tarot_cards/19.jpg", texto: "ESPERANÇA" },
+    { imagem: "assets/tarot_cards/20.jpg", texto: "LUA" },
+    { imagem: "assets/tarot_cards/21.jpg", texto: "O SOL" },
+    { imagem: "assets/tarot_cards/22.jpg", texto: "JULGAMENTO" },
+    { imagem: "assets/tarot_cards/23.jpg", texto: "O MUNDO" },
+    { imagem: "assets/tarot_cards/24.jpg", texto: "JULGAMENTO - INVERTIDO" },
+    { imagem: "assets/tarot_cards/25.jpg", texto: "O MUNDO - INVERTIDO" },
+    { imagem: "assets/tarot_cards/26.jpg", texto: "RODA DA FORTUNA - INVERTIDO" },
+    { imagem: "assets/tarot_cards/27.jpg", texto: "FORÇA - INVERTIDO" },
+    { imagem: "assets/tarot_cards/28.jpg", texto: "O ENFORCADO - INVERTIDO" },
+    { imagem: "assets/tarot_cards/29.jpg", texto: "MORTE - INVERTIDO" },
+    { imagem: "assets/tarot_cards/30.jpg", texto: "TEMPERANÇA - INVERTIDO" },
+    { imagem: "assets/tarot_cards/31.jpg", texto: "DAIBO - INVERTIDO" },
+    { imagem: "assets/tarot_cards/32.jpg", texto: "TORRE - INVERTIDO" },
+    { imagem: "assets/tarot_cards/33.jpg", texto: "ESPERANÇA - INVERTIDO" },
+    { imagem: "assets/tarot_cards/34.jpg", texto: "LUA - INVERTIDO" },
+    { imagem: "assets/tarot_cards/35.jpg", texto: "O SOL - INVERTIDO" },
+    { imagem: "assets/tarot_cards/36.jpg", texto: "MAGO - INVERTIDO" },
+    { imagem: "assets/tarot_cards/37.jpg", texto: "PAPISA - INVERTIDO" },
+    { imagem: "assets/tarot_cards/38.jpg", texto: "IMPERATRIZ - INVERTIDO" },
+    { imagem: "assets/tarot_cards/39.jpg", texto: "IMPERADOR - INVERTIDO" },
+    { imagem: "assets/tarot_cards/40.jpg", texto: "PAPA - INVERTIDO" },
+    { imagem: "assets/tarot_cards/41.jpg", texto: "AMANTES - INVERTIDO" },
+    { imagem: "assets/tarot_cards/42.jpg", texto: "GUERRA - INVERTIDO" },
+    { imagem: "assets/tarot_cards/43.jpg", texto: "JUSTIÇA - INVERTIDO" },
+    { imagem: "assets/tarot_cards/44.jpg", texto: "EREMITA - INVERTIDO" }
+];
+
+let isDrawingTarot = false;
+
+function useItem(id, customPrice = null) {
+    if (id === 115) { // Baralho de Tarot
+        inventorySidebar.classList.add("hidden");
+        tarotModal.classList.remove("hidden");
+        resetTarot();
+    } else if (id === 109) { // Jogo de Dados
+        inventorySidebar.classList.add("hidden");
+        diceModal.classList.remove("hidden");
+        currentUsingDice = { id, price: customPrice };
+        resetDice();
+    } else if (id === 111) { // Roleta do Destino
+        inventorySidebar.classList.add("hidden");
+        wheelModal.classList.remove("hidden");
+        resetWheel();
+    } else {
+        showToast("Este item não tem um uso imediato aqui, mas é bom tê-lo!", "info", "fa-circle-info");
+    }
+}
+
+function consumeItem(id, price = null) {
+    const itemIndex = appState.inventory.findIndex(i => i.id === id && (price === null || i.price === price));
+    if (itemIndex !== -1) {
+        if (appState.inventory[itemIndex].quantity > 1) {
+            appState.inventory[itemIndex].quantity -= 1;
+        } else {
+            appState.inventory.splice(itemIndex, 1);
+        }
+        saveState();
+        updateUI();
+    }
+}
+
+function resetWheel() {
+    wheelResultText.classList.remove("show");
+    wheelResultText.textContent = "?";
+    wheelRotation = 0;
+    wheelCanvas.style.transform = `rotate(0deg)`;
+    isSpinningWheel = false;
+    spinWheelBtn.disabled = false;
+    drawWheel();
+}
+
+function drawWheel() {
+    const ctx = wheelCanvas.getContext("2d");
+    const segments = parseInt(wheelSegmentsInput.value);
+    const radius = wheelCanvas.width / 2;
+    const arc = (Math.PI * 2) / segments;
+
+    ctx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
+
+    for (let i = 0; i < segments; i++) {
+        const angle = i * arc;
+        ctx.beginPath();
+        ctx.fillStyle = i % 2 === 0 ? "#1a0b2e" : "#2d1b4d";
+        ctx.strokeStyle = "#a855f7";
+        ctx.lineWidth = 2;
+        ctx.moveTo(radius, radius);
+        ctx.arc(radius, radius, radius, angle, angle + arc);
+        ctx.fill();
+        ctx.stroke();
+
+        // Text
+        ctx.save();
+        ctx.translate(radius, radius);
+        ctx.rotate(angle + arc / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#fff";
+        ctx.font = "bold 16px Cinzel";
+        ctx.fillText(i + 1, radius - 20, 10);
+        ctx.restore();
+    }
+}
+
+function spinWheel() {
+    if (isSpinningWheel) return;
+
+    isSpinningWheel = true;
+    spinWheelBtn.disabled = true;
+    wheelResultText.classList.remove("show");
+
+    // Consume item (already paid price of 50 at purchase)
+    consumeItem(111);
+    updateUI();
+    saveState();
+
+    const segments = parseInt(wheelSegmentsInput.value);
+    const extraRounds = 5 + Math.floor(Math.random() * 5);
+    const randomSegment = Math.floor(Math.random() * segments);
+    const segmentDegrees = 360 / segments;
+    
+    const targetRotation = 270 - (randomSegment * segmentDegrees + segmentDegrees / 2);
+    wheelRotation += (extraRounds * 360) + (targetRotation - (wheelRotation % 360));
+    
+    wheelCanvas.style.transform = `rotate(${wheelRotation}deg)`;
+
+    setTimeout(() => {
+        isSpinningWheel = false;
+        const result = randomSegment + 1;
+        wheelResultText.textContent = result;
+        wheelResultText.classList.add("show");
+
+        // Simple reward for the wheel (even = 2x price, 1 = 5x price)
+        if (result === 1) {
+            const prize = 50 * 5;
+            appState.gold += prize;
+            showToast(`DESTINO SUPREMO! Ganhou ${prize} ouros (5x)!`, "success", "fa-crown");
+        } else if (result % 2 === 0) {
+            const prize = 50 * 2;
+            appState.gold += prize;
+            showToast(`Sorte! Ganhou ${prize} ouros (2x).`, "success", "fa-coins");
+        } else {
+            showToast(`O destino não foi favorável.`, "error", "fa-ghost");
+        }
+
+        updateUI();
+        saveState();
+
+        setTimeout(() => {
+            wheelModal.classList.add("hidden");
+            showToast("Item consumido.", "info", "fa-info-circle");
+        }, 2000);
+    }, 4000);
+}
+
+function resetDice() {
+    diceResultEl.textContent = "?";
+    diceVisual.classList.remove("rolling");
+    isRollingDice = false;
+    rollDiceBtn.disabled = false;
+}
+
+function rollDice() {
+    if (isRollingDice || !currentUsingDice) return;
+
+    const bet = currentUsingDice.price;
+
+    isRollingDice = true;
+    rollDiceBtn.disabled = true;
+    diceVisual.classList.add("rolling");
+
+    // Consume item (already paid at purchase)
+    consumeItem(109, bet);
+    updateUI();
+    saveState();
+
+    // Rapidly change numbers for a better "spinning" effect
+    let rollInterval = setInterval(() => {
+        diceResultEl.textContent = Math.floor(Math.random() * currentDieType) + 1;
+    }, 50);
+
+    // Simulating roll duration
+    setTimeout(() => {
+        clearInterval(rollInterval);
+        const result = Math.floor(Math.random() * currentDieType) + 1;
+        diceVisual.classList.remove("rolling");
+        diceResultEl.textContent = result;
+        isRollingDice = false;
+        rollDiceBtn.disabled = true;
+        
+        // Results
+        if (result === currentDieType) {
+            const prize = bet * 3;
+            appState.gold += prize;
+            showToast(`CRÍTICO! Ganhou ${prize} ouros (3x)!`, "success", "fa-star");
+        } else if (result >= currentDieType * 0.75) {
+            const prize = Math.floor(bet * 1.5);
+            appState.gold += prize;
+            showToast(`Bom resultado! Ganhou ${prize} ouros (1.5x).`, "success", "fa-coins");
+        } else if (result === 1) {
+            showToast(`ERRO CRÍTICO! Perdeu sua aposta de ${bet}.`, "error", "fa-skull");
+        } else {
+            showToast(`Você rolou ${result}. Mais sorte na próxima!`, "info", "fa-dice");
+        }
+        
+        updateUI();
+        saveState();
+        currentUsingDice = null;
+
+        setTimeout(() => {
+            diceModal.classList.add("hidden");
+            showToast("Item consumido.", "info", "fa-info-circle");
+        }, 2000);
+    }, 1000);
+}
+
+function resetTarot() {
+    tarotCard.classList.remove("is-flipped");
+    tarotCard.classList.remove("is-inverted");
+    cardImage.classList.remove("is-inverted");
+    cardImage.classList.remove("loaded");
+    resultInfo.classList.remove("show");
+    drawBtn.disabled = false;
+    drawBtn.textContent = "Revelar Oculto";
+}
+
+function drawCard() {
+    if (isDrawingTarot) return;
+    isDrawingTarot = true;
+    drawBtn.disabled = true;
+
+    if (tarotCard.classList.contains("is-flipped")) {
+        tarotCard.classList.remove("is-flipped");
+        tarotCard.classList.remove("is-inverted");
+        cardImage.classList.remove("is-inverted");
+        resultInfo.classList.remove("show");
+        setTimeout(revealNewCard, 1000);
+    } else {
+        revealNewCard();
+    }
+}
+
+function revealNewCard() {
+    const randomIndex = Math.floor(Math.random() * tarotCardsData.length);
+    const selectedCard = tarotCardsData[randomIndex];
+
+    // Reset image state for new draw
+    cardImage.classList.remove("loaded");
+    cardImage.src = selectedCard.imagem;
+
+    const triggerFlip = () => {
+        const isReversed = selectedCard.texto.includes("INVERTIDO");
+        let cleanName = selectedCard.texto.replace(" - INVERTIDO", "").trim();
+
+        if (isReversed) {
+            tarotCard.classList.add("is-inverted");
+            cardImage.classList.add("is-inverted");
+            cardStatusEl.textContent = "INVERTIDA";
+            cardStatusEl.className = "status-marker reversed";
+        } else {
+            tarotCard.classList.remove("is-inverted");
+            cardImage.classList.remove("is-inverted");
+            cardStatusEl.textContent = "";
+            cardStatusEl.className = "status-marker";
+        }
+
+        cardNameEl.textContent = cleanName;
+        
+        // Ensure image is marked as loaded for the fade-in effect
+        cardImage.classList.add("loaded");
+        
+        // Start the flip animation
+        tarotCard.classList.add("is-flipped");
+
+        setTimeout(() => {
+            resultInfo.classList.add("show");
+            isDrawingTarot = false;
+            drawBtn.disabled = false;
+            drawBtn.textContent = "Tentar Outra";
+        }, 600);
+    };
+
+    // Preload the image before flipping
+    if (cardImage.complete) {
+        setTimeout(triggerFlip, 100);
+    } else {
+        cardImage.onload = triggerFlip;
+        cardImage.onerror = triggerFlip;
+    }
+}

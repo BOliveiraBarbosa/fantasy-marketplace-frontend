@@ -42,6 +42,10 @@
                     <i class="fa-solid fa-heart"></i>
                     <span id="wishlist-count" class="badge">0</span>
                 </button>
+                <button id="inventory-btn" class="action-btn" title="Meu Inventário">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span id="inventory-count" class="badge">0</span>
+                </button>
                 <button id="cart-btn" class="action-btn" title="Carrinho">
                     <i class="fa-solid fa-shopping-cart"></i>
                     <span id="cart-count" class="badge">0</span>
@@ -109,6 +113,145 @@
             </div>
             <div class="sidebar-items" id="wishlist-items">
                 <!-- Wishlist items injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Inventory Sidebar -->
+    <div id="inventory-sidebar" class="sidebar-overlay hidden">
+        <div class="glass-sidebar">
+            <div class="sidebar-header">
+                <h2>Meu Inventário</h2>
+                <button class="close-btn" id="close-inventory"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="sidebar-items" id="inventory-items">
+                <!-- Inventory items injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Tarot Modal -->
+    <div id="tarot-modal" class="modal-overlay hidden">
+        <div class="glass-modal tarot-modal-content">
+            <button class="close-btn" id="close-tarot-modal"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="tarot-container">
+                <div class="tarot-header">
+                    <h1>Oráculo de Tarot</h1>
+                    <p>Concentre-se em sua pergunta</p>
+                </div>
+
+                <div class="reading-table">
+                    <div class="card-scene">
+                        <div class="card" id="tarotCard">
+                            <div class="card__face card__face--front">
+                                <div class="card-back-pattern"></div>
+                            </div>
+                            <div class="card__face card__face--back">
+                                <div class="card-frame">
+                                    <div class="card-art-container">
+                                        <img src="" alt="Carta Sorteada" id="cardImage">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="interaction-area">
+                        <div class="result-info" id="resultInfo">
+                            <h2 class="card-name" id="cardName">Sua Carta</h2>
+                            <span id="cardStatus" class="status-marker"></span>
+                        </div>
+                        <button id="drawBtn" class="draw-btn">Revelar Oculto</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dice Roller Modal -->
+    <div id="dice-modal" class="modal-overlay hidden">
+        <div class="glass-modal dice-modal-content">
+            <button class="close-btn" id="close-dice-modal"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="dice-container">
+                <div class="dice-header">
+                    <h1>Mesa de Dados</h1>
+                    <p>Escolha sua sorte, aventureiro</p>
+                </div>
+
+                <div class="dice-selection">
+                    <button class="dice-type-btn" data-die="4">D4</button>
+                    <button class="dice-type-btn active" data-die="6">D6</button>
+                    <button class="dice-type-btn" data-die="8">D8</button>
+                    <button class="dice-type-btn" data-die="10">D10</button>
+                    <button class="dice-type-btn" data-die="12">D12</button>
+                    <button class="dice-type-btn" data-die="20">D20</button>
+                </div>
+
+                <div class="dice-display">
+                    <div id="dice-visual" class="dice-box">
+                        <span id="dice-result">?</span>
+                    </div>
+                </div>
+
+                <div class="dice-footer">
+                    <button id="rollDiceBtn" class="btn-primary">Rolar Dado</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wheel of Destiny Modal -->
+    <div id="wheel-modal" class="modal-overlay hidden">
+        <div class="glass-modal wheel-modal-content">
+            <button class="close-btn" id="close-wheel-modal"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="wheel-system-container">
+                <div class="wheel-header">
+                    <h1>Roleta do Destino</h1>
+                    <p>Quantas possibilidades o destino reserva?</p>
+                </div>
+
+                <div class="wheel-config">
+                    <div class="config-item">
+                        <label>Segmentos:</label>
+                        <input type="number" id="wheel-segments" min="2" max="20" value="8">
+                    </div>
+                </div>
+
+                <div class="wheel-display">
+                    <div class="wheel-pointer">▼</div>
+                    <div id="wheel-canvas-container">
+                        <canvas id="wheelCanvas" width="300" height="300"></canvas>
+                    </div>
+                </div>
+
+                <div class="wheel-footer">
+                    <button id="spinWheelBtn" class="btn-primary">Girar Roleta</button>
+                    <div id="wheel-result-text">?</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bet Selection Modal -->
+    <div id="bet-modal" class="modal-overlay hidden">
+        <div class="glass-modal bet-selection-modal">
+            <div class="bet-header">
+                <h2>Aposta Mística</h2>
+                <p>Quanto ouro você deseja arriscar neste jogo?</p>
+            </div>
+            <div class="bet-body">
+                <div class="bet-input-wrapper">
+                    <i class="fa-solid fa-coins gold-icon"></i>
+                    <input type="number" id="custom-bet-input" min="5" value="5">
+                </div>
+                <p class="bet-hint">Mínimo: 5 ouros</p>
+            </div>
+            <div class="bet-footer">
+                <button id="cancel-bet-btn" class="btn-secondary">Cancelar</button>
+                <button id="confirm-bet-btn" class="btn-primary">Confirmar Aposta</button>
             </div>
         </div>
     </div>

@@ -318,6 +318,7 @@ h1, h2, h3, h4, .logo, .gold-icon {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 2rem;
+    align-content: start; /* Prevent rows from stretching to fill vertical space */
 }
 
 .item-card {
@@ -388,7 +389,6 @@ h1, h2, h3, h4, .logo, .gold-icon {
     font-size: 0.9rem;
     color: var(--text-muted);
     margin-bottom: 1.5rem;
-    flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;
@@ -401,6 +401,7 @@ h1, h2, h3, h4, .logo, .gold-icon {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+    margin-top: auto; /* Push footer to the bottom of the card details */
 }
 
 .item-price {
@@ -812,3 +813,548 @@ h1, h2, h3, h4, .logo, .gold-icon {
     .glass-nav { flex-direction: column; gap: 1rem; padding: 1rem; border-radius: 0; }
     .search-container { width: 100%; }
 }
+
+/* --- Inventory & Tarot System --- */
+
+#inventory-btn i {
+    color: var(--primary);
+}
+
+.inventory-item {
+    display: flex;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    align-items: center;
+    border: 1px solid var(--glass-border);
+}
+
+.use-btn {
+    background: var(--primary);
+    color: #000;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: transform 0.2s;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.use-btn:hover {
+    transform: scale(1.05);
+    background: var(--primary-hover);
+}
+
+/* Tarot Modal & Card Logic - Refined & Proportional */
+.tarot-modal-content {
+    width: 420px;
+    max-width: 95%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(10, 10, 15, 0.98);
+    border: 1px solid rgba(66, 130, 204, 0.4);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+    border-radius: 24px;
+}
+
+.tarot-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tarot-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.tarot-header h1 {
+    font-size: 1.8rem;
+    color: #4282cc;
+    text-shadow: 0 0 10px rgba(66, 130, 204, 0.4);
+    margin-bottom: 0.3rem;
+    font-family: 'Cinzel', serif;
+}
+
+.tarot-header p {
+    color: var(--text-muted);
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.card-scene {
+    width: 280px;
+    height: 380px; /* Adjusted height for better proportions */
+    perspective: 1000px;
+    margin-bottom: 1.5rem;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform-style: preserve-3d;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.card.is-flipped {
+    transform: rotateY(180deg);
+}
+
+.card.is-flipped.is-inverted {
+    transform: rotateY(180deg) rotateZ(180deg);
+}
+
+.card__face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.card__face--front {
+    background: radial-gradient(circle at center, #050a14 0%, #020408 100%);
+    border: 2px solid #235c9e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 20px rgba(35, 92, 158, 0.3);
+}
+
+.card-back-pattern {
+    width: 88%;
+    height: 90%;
+    border: 1px solid #235c9e;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-back-pattern::before {
+    content: "✧";
+    color: #235c9e;
+    font-size: 3rem;
+    opacity: 0.5;
+    animation: tarotPulse 4s infinite alternate;
+}
+
+@keyframes tarotPulse {
+    0% { transform: scale(0.9); opacity: 0.3; }
+    100% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.card__face--back {
+    transform: rotateY(180deg);
+    background: #050a14;
+    border: 2px solid #235c9e;
+    box-shadow: inset 0 0 20px rgba(35, 92, 158, 0.3);
+}
+
+.card-frame {
+    width: 100%;
+    height: 100%;
+}
+
+.card-art-container {
+    width: 100%;
+    height: 100%;
+}
+
+.card-art-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Fill the card area and crop white borders if any */
+    display: block;
+    opacity: 0;
+    transition: opacity 0.4s ease-in;
+}
+
+.card-art-container img.loaded {
+    opacity: 1;
+}
+
+.card-art-container img.is-inverted {
+    transform: rotate(180deg);
+}
+
+.interaction-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.result-info {
+    text-align: center;
+    min-height: 40px;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transition: opacity 0.6s;
+}
+
+.result-info.show {
+    opacity: 1;
+}
+
+.card-name {
+    font-size: 1.3rem;
+    color: #4282cc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Cinzel', serif;
+}
+
+.status-marker {
+    color: #a3c4f0;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.status-marker.reversed {
+    color: #e06c75;
+}
+
+.draw-btn {
+    background: transparent;
+    color: #4282cc;
+    border: 1px solid #235c9e;
+    padding: 0.7rem 2rem;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    border-radius: 8px;
+    letter-spacing: 2px;
+}
+
+.draw-btn:hover {
+    background: rgba(35, 92, 158, 0.2);
+    box-shadow: 0 0 20px rgba(66, 130, 204, 0.4);
+    transform: translateY(-2px);
+}
+
+.draw-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --- Dice Roller System --- */
+.dice-modal-content {
+    width: 340px;
+    max-width: 95%;
+    padding: 1.5rem;
+    background: rgba(15, 10, 5, 0.98);
+    border: 1px solid var(--primary);
+    border-radius: 20px;
+}
+
+.bet-input-area {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.4);
+    padding: 0.8rem;
+    border-radius: 12px;
+    border: 1px solid rgba(201, 162, 39, 0.2);
+    margin-top: 0.5rem;
+}
+
+.bet-input-area label {
+    font-size: 0.9rem;
+    color: var(--primary);
+}
+
+.bet-input-area input {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    width: 80px;
+    text-align: right;
+    font-size: 1.1rem;
+    font-weight: bold;
+    outline: none;
+}
+
+.dice-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.dice-header h1 {
+    color: var(--primary);
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 0.2rem;
+}
+
+.dice-header p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.dice-selection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+    width: 100%;
+}
+
+.dice-type-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-light);
+    padding: 0.6rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.dice-type-btn:hover {
+    background: rgba(201, 162, 39, 0.1);
+    border-color: var(--primary);
+}
+
+.dice-type-btn.active {
+    background: var(--primary);
+    color: #000;
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(201, 162, 39, 0.4);
+}
+
+.dice-display {
+    padding: 1rem;
+}
+
+.dice-box {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #2a2a2a, #111);
+    border: 2px solid var(--primary);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-family: 'Cinzel', serif;
+    color: var(--primary);
+    box-shadow: 0 0 30px rgba(201, 162, 39, 0.1), inset 0 0 15px rgba(0,0,0,0.5);
+    position: relative;
+    transition: transform 0.1s;
+}
+
+.dice-box.rolling {
+    animation: diceRoll 0.2s infinite linear;
+    filter: blur(1px);
+}
+
+@keyframes diceRoll {
+    0% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.1) rotate(90deg) translate(2px, -2px); }
+    50% { transform: scale(1) rotate(180deg) translate(-2px, 2px); }
+    75% { transform: scale(1.1) rotate(270deg) translate(2px, 2px); }
+    100% { transform: scale(1) rotate(360deg); }
+}
+
+.dice-footer {
+    width: 100%;
+}
+
+/* --- Wheel of Destiny System --- */
+.wheel-modal-content {
+    width: 380px;
+    max-width: 95%;
+    padding: 1.5rem;
+    background: rgba(15, 5, 15, 0.98);
+    border: 1px solid #a855f7; /* Purple magic theme */
+    box-shadow: 0 0 50px rgba(168, 85, 247, 0.2);
+}
+
+.wheel-system-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.wheel-header h1 {
+    color: #a855f7;
+    text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+    font-size: 1.5rem;
+    margin-bottom: 0.2rem;
+}
+
+.wheel-config {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+}
+
+.config-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.4);
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.config-item label {
+    font-size: 0.8rem;
+    color: #a855f7;
+}
+
+.config-item input {
+    background: transparent;
+    border: none;
+    color: #a855f7;
+    width: 60px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: right;
+    outline: none;
+}
+
+.wheel-display {
+    position: relative;
+    padding: 10px;
+}
+
+.wheel-pointer {
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    color: #a855f7;
+    z-index: 10;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.8));
+}
+
+#wheel-canvas-container {
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    border: 4px solid #a855f7;
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+    overflow: hidden;
+    position: relative;
+}
+
+#wheelCanvas {
+    transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1);
+}
+
+.wheel-footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+#wheel-result-text {
+    font-size: 2rem;
+    font-family: 'Cinzel', serif;
+    color: #a855f7;
+    min-height: 40px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+#wheel-result-text.show {
+    opacity: 1;
+}
+
+/* --- Bet Selection Modal --- */
+.bet-selection-modal {
+    width: 400px;
+    max-width: 90%;
+    padding: 2.5rem;
+    text-align: center;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 30px rgba(201, 162, 39, 0.2);
+}
+
+.bet-header h2 {
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(201, 162, 39, 0.4);
+}
+
+.bet-header p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.bet-input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: rgba(0,0,0,0.4);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(201, 162, 39, 0.3);
+    margin-bottom: 0.5rem;
+}
+
+.bet-input-wrapper i {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.bet-input-wrapper input {
+    background: transparent;
+    border: none;
+    color: var(--primary);
+    font-size: 2rem;
+    font-weight: bold;
+    width: 150px;
+    text-align: center;
+    outline: none;
+}
+
+.bet-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+.bet-footer {
+    display: flex;
+    gap: 1rem;
+}
+
+.bet-footer button {
+    flex: 1;
+}
+
+
+
