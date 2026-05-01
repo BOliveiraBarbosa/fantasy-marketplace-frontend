@@ -1257,17 +1257,20 @@ h1, h2, h3, h4, .logo, .gold-icon {
 }
 
 #wheel-canvas-container {
-    width: 260px;
-    height: 260px;
+    width: 280px;
+    height: 280px;
     border-radius: 50%;
     border: 4px solid #a855f7;
     box-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
     overflow: hidden;
-    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #wheelCanvas {
     transition: transform 4s cubic-bezier(0.15, 0, 0.15, 1);
+    display: block;
 }
 
 .wheel-footer {

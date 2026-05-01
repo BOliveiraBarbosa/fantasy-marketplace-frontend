@@ -853,21 +853,7 @@ function spinWheel() {
         wheelResultText.textContent = result;
         wheelResultText.classList.add("show");
 
-        // Simple reward for the wheel (even = 2x price, 1 = 5x price)
-        if (result === 1) {
-            const prize = 50 * 5;
-            appState.gold += prize;
-            showToast(`DESTINO SUPREMO! Ganhou ${prize} ouros (5x)!`, "success", "fa-crown");
-        } else if (result % 2 === 0) {
-            const prize = 50 * 2;
-            appState.gold += prize;
-            showToast(`Sorte! Ganhou ${prize} ouros (2x).`, "success", "fa-coins");
-        } else {
-            showToast(`O destino não foi favorável.`, "error", "fa-ghost");
-        }
-
-        updateUI();
-        saveState();
+        showToast(`Destino revelado: ${result}!`, "info", "fa-sparkles");
 
         setTimeout(() => {
             wheelModal.classList.add("hidden");
@@ -911,19 +897,13 @@ function rollDice() {
         isRollingDice = false;
         rollDiceBtn.disabled = true;
         
-        // Results
+        // Final result feedback (No gold change)
         if (result === currentDieType) {
-            const prize = bet * 3;
-            appState.gold += prize;
-            showToast(`CRÍTICO! Ganhou ${prize} ouros (3x)!`, "success", "fa-star");
-        } else if (result >= currentDieType * 0.75) {
-            const prize = Math.floor(bet * 1.5);
-            appState.gold += prize;
-            showToast(`Bom resultado! Ganhou ${prize} ouros (1.5x).`, "success", "fa-coins");
+            showToast(`CRÍTICO! Você rolou o valor máximo: ${result}!`, "success", "fa-star");
         } else if (result === 1) {
-            showToast(`ERRO CRÍTICO! Perdeu sua aposta de ${bet}.`, "error", "fa-skull");
+            showToast(`ERRO CRÍTICO! Você rolou 1.`, "error", "fa-skull");
         } else {
-            showToast(`Você rolou ${result}. Mais sorte na próxima!`, "info", "fa-dice");
+            showToast(`Você rolou ${result}.`, "info", "fa-dice");
         }
         
         updateUI();
